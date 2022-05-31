@@ -1,0 +1,9 @@
+name: venv
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - pip
+  - pip:
+    - fnmatch2
+    - laserfarm
