@@ -1,0 +1,11 @@
+name: venv
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - pip
+  - pip:
+    - numpy
+    - laspy
+    - requests
+    - webdavclient3
