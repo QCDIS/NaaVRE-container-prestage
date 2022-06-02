@@ -1,13 +1,13 @@
-import pathlib
-import sys
-from minio import Minio
-import pandas as pd
-import h5py
-import json
-import re
 import os
+import json
+import h5py
 import shutil
+from minio import Minio
+import sys
+import pandas as pd
+import re
 import subprocess
+import pathlib
 import argparse
 arg_parser = argparse.ArgumentParser()
 
