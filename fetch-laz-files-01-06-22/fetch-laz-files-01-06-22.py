@@ -60,8 +60,13 @@ def send_annotation(start=None,end=None,message=None,tags=None):
 
 start = int(round(time.time() * 1000))
 
-laz_files111 = [f for f in list_remote(get_wdclient(conf_wd_opts), conf_remote_path_ahn.as_posix())
+laz_files = [f for f in list_remote(get_wdclient(conf_wd_opts), conf_remote_path_ahn.as_posix())
              if f.lower().endswith('.laz')]
 end = int(round(time.time() * 1000))
 send_annotation(start=start,end=end,message='Fetch Laz Files 01-06-22')
 
+import json
+filename = "/tmp/laz_files_" + id + ".json"
+file_laz_files = open(filename, "w")
+file_laz_files.write(json.dumps(laz_files))
+file_laz_files.close()
