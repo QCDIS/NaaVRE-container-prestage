@@ -1,8 +1,8 @@
-import pathlib
 from laserfarm.remote_utils import list_remote
-from laserfarm.remote_utils import get_wdclient
 import requests
+import pathlib
 import time
+from laserfarm.remote_utils import get_wdclient
 import argparse
 arg_parser = argparse.ArgumentParser()
 
@@ -26,15 +26,15 @@ param_hostname = args.param_hostname
 param_login = args.param_login
 param_password = args.param_password
 
-conf_grafana_verify_ssl = True
 conf_remote_path_ahn = pathlib.Path('/webdav/ahn')
-conf_notebook_name = 'Laserfarm_updated'
 conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
+conf_grafana_verify_ssl = True
+conf_notebook_name = ''
 
-conf_grafana_verify_ssl = True
 conf_remote_path_ahn = pathlib.Path('/webdav/ahn')
-conf_notebook_name = 'Laserfarm_updated'
 conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
+conf_grafana_verify_ssl = True
+conf_notebook_name = ''
 
 def send_annotation(start=None,end=None,message=None,tags=None):
     if not tags:
@@ -60,13 +60,8 @@ def send_annotation(start=None,end=None,message=None,tags=None):
 
 start = int(round(time.time() * 1000))
 
-laz_files = [f for f in list_remote(get_wdclient(conf_wd_opts), conf_remote_path_ahn.as_posix())
+laz_files111 = [f for f in list_remote(get_wdclient(conf_wd_opts), conf_remote_path_ahn.as_posix())
              if f.lower().endswith('.laz')]
 end = int(round(time.time() * 1000))
 send_annotation(start=start,end=end,message='Fetch Laz Files 01-06-22')
 
-import json
-filename = "/tmp/laz_files_" + id + ".json"
-file_laz_files = open(filename, "w")
-file_laz_files.write(json.dumps(laz_files))
-file_laz_files.close()
