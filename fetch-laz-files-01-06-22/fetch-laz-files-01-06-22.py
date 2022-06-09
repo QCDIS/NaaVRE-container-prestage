@@ -1,8 +1,8 @@
-import pathlib
-import time
-from laserfarm.remote_utils import list_remote
-import requests
 from laserfarm.remote_utils import get_wdclient
+import time
+import requests
+import pathlib
+from laserfarm.remote_utils import list_remote
 import argparse
 arg_parser = argparse.ArgumentParser()
 
@@ -26,15 +26,15 @@ param_hostname = args.param_hostname
 param_login = args.param_login
 param_password = args.param_password
 
-conf_grafana_verify_ssl = True
-conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
 conf_remote_path_ahn = pathlib.Path('/webdav/ahn')
 conf_notebook_name = ''
+conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
+conf_grafana_verify_ssl = True
 
-conf_grafana_verify_ssl = True
-conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
 conf_remote_path_ahn = pathlib.Path('/webdav/ahn')
 conf_notebook_name = ''
+conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
+conf_grafana_verify_ssl = True
 
 def send_annotation(start=None,end=None,message=None,tags=None):
     if not tags:
