@@ -1,10 +1,10 @@
-import pathlib
 import os
-import laspy
-import requests
 import numpy as np
-from webdav3.client import Client
+import requests
 import time
+import laspy
+import pathlib
+from webdav3.client import Client
 import argparse
 arg_parser = argparse.ArgumentParser()
 
@@ -34,16 +34,16 @@ param_login = args.param_login
 param_max_filesize = args.param_max_filesize
 param_password = args.param_password
 
-conf_grafana_verify_ssl = True
-conf_remote_path_ahn = pathlib.Path('/webdav/ahn')
-conf_notebook_name = 'Laserfarm_updated'
+conf_notebook_name = ''
 conf_remote_path_split = pathlib.Path('/webdav/split')
+conf_remote_path_ahn = pathlib.Path('/webdav/ahn')
+conf_grafana_verify_ssl = True
 conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
 
-conf_grafana_verify_ssl = True
-conf_remote_path_ahn = pathlib.Path('/webdav/ahn')
-conf_notebook_name = 'Laserfarm_updated'
+conf_notebook_name = ''
 conf_remote_path_split = pathlib.Path('/webdav/split')
+conf_remote_path_ahn = pathlib.Path('/webdav/ahn')
+conf_grafana_verify_ssl = True
 conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
 
 
