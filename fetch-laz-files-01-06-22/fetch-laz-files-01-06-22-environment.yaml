@@ -5,5 +5,5 @@ channels:
 dependencies:
   - pip
   - pip:
-    - requests
     - laserfarm
+    - requests
