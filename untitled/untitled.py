@@ -1,18 +1,18 @@
-from laserfarm.remote_utils import list_remote
-import requests
+from webdav3.client import Client
+import json
+import numpy as np
+from laserfarm import GeotiffWriter
+import laspy
+import copy
 from laserfarm import DataProcessing
 from laserfarm import Retiler
-import json
-import copy
+from laserfarm.remote_utils import list_remote
 import pathlib
-import time
-from laserfarm.remote_utils import get_wdclient
-from webdav3.client import Client
-import numpy as np
-import fnmatch
-from laserfarm import GeotiffWriter
 import os
-import laspy
+import requests
+from laserfarm.remote_utils import get_wdclient
+import fnmatch
+import time
 import argparse
 arg_parser = argparse.ArgumentParser()
 
