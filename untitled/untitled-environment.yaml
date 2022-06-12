@@ -6,7 +6,7 @@ dependencies:
   - pip
   - pip:
     - requests
-    - webdav3
     - laserfarm
-    - numpy
+    - webdavclient3
     - laspy
+    - numpy
