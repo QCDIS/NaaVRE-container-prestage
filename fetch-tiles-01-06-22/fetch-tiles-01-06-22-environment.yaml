@@ -5,5 +5,4 @@ channels:
 dependencies:
   - pip
   - pip:
-    - laserfarm
-    - fnmatch2
+    - laserfarm==0.1.4
