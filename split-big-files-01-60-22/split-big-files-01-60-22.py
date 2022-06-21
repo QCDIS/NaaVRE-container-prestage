@@ -1,7 +1,7 @@
-import pathlib
 from webdav3.client import Client
-import laspy
 import numpy as np
+import laspy
+import pathlib
 import os
 import argparse
 arg_parser = argparse.ArgumentParser()
@@ -15,6 +15,7 @@ arg_parser.add_argument('--param_laz_compression_factor', action='store', type=s
 arg_parser.add_argument('--param_login', action='store', type=str, required='True', dest='param_login')
 arg_parser.add_argument('--param_max_filesize', action='store', type=str, required='True', dest='param_max_filesize')
 arg_parser.add_argument('--param_password', action='store', type=str, required='True', dest='param_password')
+arg_parser.add_argument('--param_remote_path_ahn', action='store', type=str, required='True', dest='param_remote_path_ahn')
 
 args = arg_parser.parse_args()
 
@@ -27,14 +28,13 @@ param_laz_compression_factor = args.param_laz_compression_factor
 param_login = args.param_login
 param_max_filesize = args.param_max_filesize
 param_password = args.param_password
+param_remote_path_ahn = args.param_remote_path_ahn
 
-conf_remote_path_ahn = pathlib.Path('/webdav/ahn')
-conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
 conf_remote_path_split = pathlib.Path('/webdav/split')
+conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
 
-conf_remote_path_ahn = pathlib.Path('/webdav/ahn')
-conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
 conf_remote_path_split = pathlib.Path('/webdav/split')
+conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
 
     
 
@@ -81,7 +81,7 @@ remote_path_split = conf_remote_path_split
 
 file = laz_files
 
-client.download_sync(remote_path=os.path.join(conf_remote_path_ahn,file), local_path=file)
+client.download_sync(remote_path=os.path.join(pathlib.Path(param_remote_path_ahn),file), local_path=file)
 inps = split_strategy(file, int(param_max_filesize))
 for inp in inps:
     save_chunk_to_laz_file(*inp)
