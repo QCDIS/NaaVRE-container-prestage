@@ -1,10 +1,8 @@
-import os
-import numpy as np
-import requests
-import time
-import laspy
 import pathlib
 from webdav3.client import Client
+import laspy
+import numpy as np
+import os
 import argparse
 arg_parser = argparse.ArgumentParser()
 
@@ -12,8 +10,6 @@ arg_parser.add_argument('--id', action='store', type=str, required=True, dest='i
 
 arg_parser.add_argument('--laz_files', action='store' , required='True', dest='laz_files')
 
-arg_parser.add_argument('--param_grafana_base_url', action='store', type=str, required='True', dest='param_grafana_base_url')
-arg_parser.add_argument('--param_grafana_token', action='store', type=str, required='True', dest='param_grafana_token')
 arg_parser.add_argument('--param_hostname', action='store', type=str, required='True', dest='param_hostname')
 arg_parser.add_argument('--param_laz_compression_factor', action='store', type=str, required='True', dest='param_laz_compression_factor')
 arg_parser.add_argument('--param_login', action='store', type=str, required='True', dest='param_login')
@@ -26,47 +22,20 @@ id = args.id
 
 laz_files = args.laz_files
 
-param_grafana_base_url = args.param_grafana_base_url
-param_grafana_token = args.param_grafana_token
 param_hostname = args.param_hostname
 param_laz_compression_factor = args.param_laz_compression_factor
 param_login = args.param_login
 param_max_filesize = args.param_max_filesize
 param_password = args.param_password
 
-conf_notebook_name = ''
-conf_remote_path_split = pathlib.Path('/webdav/split')
 conf_remote_path_ahn = pathlib.Path('/webdav/ahn')
-conf_grafana_verify_ssl = True
 conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
-
-conf_notebook_name = ''
 conf_remote_path_split = pathlib.Path('/webdav/split')
+
 conf_remote_path_ahn = pathlib.Path('/webdav/ahn')
-conf_grafana_verify_ssl = True
 conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
+conf_remote_path_split = pathlib.Path('/webdav/split')
 
-
-def send_annotation(start=None,end=None,message=None,tags=None):
-    if not tags:
-        tags = []
-    
-    tags.append(conf_notebook_name)
-    
-    headers = {
-        'Accept':'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer '+param_grafana_token
-    }
-    
-    data ={
-      "time":start,
-      "timeEnd":end,
-      "created": end,
-      "tags":tags,
-      "text": message
-    }
-    resp = requests.post(param_grafana_base_url+'/api/annotations',verify=conf_grafana_verify_ssl,headers=headers,json=data)
     
 
 def save_chunk_to_laz_file(in_filename, 
@@ -104,8 +73,6 @@ def split_strategy(filename, max_filesize):
     ]
 
 
-start = int(round(time.time() * 1000))
-
 client = Client(conf_wd_opts)
 client.mkdir(conf_remote_path_split.as_posix())
 
@@ -126,9 +93,6 @@ for f in os.listdir('.'):
     os.remove(os.path.join('.', f))
     
 split_laz_files = laz_files
-
-end = int(round(time.time() * 1000))
-send_annotation(start=start,end=end,message='split big files 01-60-22')
 
 import json
 filename = "/tmp/split_laz_files_" + id + ".json"
