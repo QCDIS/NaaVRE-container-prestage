@@ -15,6 +15,7 @@ arg_parser.add_argument('--param_min_x', action='store', type=str, required='Tru
 arg_parser.add_argument('--param_min_y', action='store', type=str, required='True', dest='param_min_y')
 arg_parser.add_argument('--param_n_tiles_side', action='store', type=str, required='True', dest='param_n_tiles_side')
 arg_parser.add_argument('--param_password', action='store', type=str, required='True', dest='param_password')
+arg_parser.add_argument('--param_remote_path_root', action='store', type=str, required='True', dest='param_remote_path_root')
 
 args = arg_parser.parse_args()
 
@@ -30,16 +31,19 @@ param_min_x = args.param_min_x
 param_min_y = args.param_min_y
 param_n_tiles_side = args.param_n_tiles_side
 param_password = args.param_password
+param_remote_path_root = args.param_remote_path_root
 
-conf_remote_path_retiled = pathlib.Path('/webdav/retiled/')
+conf_remote_path_split = pathlib.Path(param_remote_path_root + '/split')
+conf_remote_path_retiled = pathlib.Path(param_remote_path_root + '/retiled/')
 conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
 conf_local_tmp = pathlib.Path('/tmp')
-conf_remote_path_split = pathlib.Path('/webdav/split')
 
-conf_remote_path_retiled = pathlib.Path('/webdav/retiled/')
+conf_remote_path_split = pathlib.Path(param_remote_path_root + '/split')
+conf_remote_path_retiled = pathlib.Path(param_remote_path_root + '/retiled/')
 conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
 conf_local_tmp = pathlib.Path('/tmp')
-conf_remote_path_split = pathlib.Path('/webdav/split')
+remote_path_retiled = str(conf_remote_path_retiled)
+
 grid_retile = {
     'min_x': float(param_min_x),
     'max_x': float(param_max_x),
@@ -64,8 +68,6 @@ retiling_input = {
 file = split_laz_files
 retiler = Retiler(file.replace('"',''),label=file).config(retiling_input).setup_webdav_client(conf_wd_opts)
 retiler_output = retiler.run()
-
-remote_path_retiled = conf_remote_path_retiled
 
 import json
 filename = "/tmp/remote_path_retiled_" + id + ".json"
