@@ -65,3 +65,10 @@ file = split_laz_files
 retiler = Retiler(file.replace('"',''),label=file).config(retiling_input).setup_webdav_client(conf_wd_opts)
 retiler_output = retiler.run()
 
+remote_path_retiled = conf_remote_path_retiled
+
+import json
+filename = "/tmp/remote_path_retiled_" + id + ".json"
+file_remote_path_retiled = open(filename, "w")
+file_remote_path_retiled.write(json.dumps(remote_path_retiled))
+file_remote_path_retiled.close()
