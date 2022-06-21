@@ -1,7 +1,6 @@
+from laserfarm.remote_utils import get_wdclient
 from laserfarm.remote_utils import list_remote
 import pathlib
-from laserfarm.remote_utils import get_wdclient
-import time
 import argparse
 arg_parser = argparse.ArgumentParser()
 
@@ -28,7 +27,6 @@ conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login,
 conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
 laz_files = [f for f in list_remote(get_wdclient(conf_wd_opts), pathlib.Path(param_remote_path_ahn).as_posix())
              if f.lower().endswith('.laz')]
-end = int(round(time.time() * 1000))
 
 import json
 filename = "/tmp/laz_files_" + id + ".json"
