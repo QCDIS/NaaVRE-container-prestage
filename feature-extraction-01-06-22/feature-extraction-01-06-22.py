@@ -1,8 +1,6 @@
 import pathlib
 import os
 from laserfarm import DataProcessing
-import requests
-import time
 import argparse
 arg_parser = argparse.ArgumentParser()
 
@@ -14,8 +12,6 @@ arg_parser.add_argument('--param_apply_filter_value', action='store', type=str, 
 arg_parser.add_argument('--param_attribute', action='store', type=str, required='True', dest='param_attribute')
 arg_parser.add_argument('--param_feature_name', action='store', type=str, required='True', dest='param_feature_name')
 arg_parser.add_argument('--param_filter_type', action='store', type=str, required='True', dest='param_filter_type')
-arg_parser.add_argument('--param_grafana_base_url', action='store', type=str, required='True', dest='param_grafana_base_url')
-arg_parser.add_argument('--param_grafana_token', action='store', type=str, required='True', dest='param_grafana_token')
 arg_parser.add_argument('--param_hostname', action='store', type=str, required='True', dest='param_hostname')
 arg_parser.add_argument('--param_login', action='store', type=str, required='True', dest='param_login')
 arg_parser.add_argument('--param_max_x', action='store', type=str, required='True', dest='param_max_x')
@@ -37,8 +33,6 @@ param_apply_filter_value = args.param_apply_filter_value
 param_attribute = args.param_attribute
 param_feature_name = args.param_feature_name
 param_filter_type = args.param_filter_type
-param_grafana_base_url = args.param_grafana_base_url
-param_grafana_token = args.param_grafana_token
 param_hostname = args.param_hostname
 param_login = args.param_login
 param_max_x = args.param_max_x
@@ -50,44 +44,15 @@ param_password = args.param_password
 param_tile_mesh_size = args.param_tile_mesh_size
 param_validate_precision = args.param_validate_precision
 
-conf_local_tmp = pathlib.Path('/tmp')
-conf_grafana_verify_ssl = True
-conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
 conf_remote_path_targets = pathlib.Path('/webdav/targets')
-conf_remote_path_norm = pathlib.Path('/webdav/norm/')
-conf_notebook_name = 'Laserfarm_updated'
-
 conf_local_tmp = pathlib.Path('/tmp')
-conf_grafana_verify_ssl = True
 conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
-conf_remote_path_targets = pathlib.Path('/webdav/targets')
 conf_remote_path_norm = pathlib.Path('/webdav/norm/')
-conf_notebook_name = 'Laserfarm_updated'
 
-def send_annotation(start=None,end=None,message=None,tags=None):
-    if not tags:
-        tags = []
-    
-    tags.append(conf_notebook_name)
-    
-    headers = {
-        'Accept':'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer '+param_grafana_token
-    }
-    
-    data ={
-      "time":start,
-      "timeEnd":end,
-      "created": end,
-      "tags":tags,
-      "text": message
-    }
-    resp = requests.post(param_grafana_base_url+'/api/annotations',verify=conf_grafana_verify_ssl,headers=headers,json=data)
-
-
-start = int(round(time.time() * 1000))
-
+conf_remote_path_targets = pathlib.Path('/webdav/targets')
+conf_local_tmp = pathlib.Path('/tmp')
+conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
+conf_remote_path_norm = pathlib.Path('/webdav/norm/')
 
 features = [param_feature_name]
 
@@ -134,9 +99,6 @@ stem, _ = os.path.splitext(t)
 idx = [int(el) for el in (stem.split('_')[1:])]
 processing = DataProcessing(t, tile_index=idx,label=stem).config(feature_extraction_input).setup_webdav_client(conf_wd_opts)
 processing.run()
-
-end = int(round(time.time() * 1000))
-send_annotation(start=start,end=end,message='Feature Extraction 01-06-22')
 
 import json
 filename = "/tmp/features_" + id + ".json"
