@@ -5,7 +5,6 @@ channels:
 dependencies:
   - pip
   - pip:
-    - requests
-    - webdav3
     - numpy
+    - webdavclient3
     - laspy
