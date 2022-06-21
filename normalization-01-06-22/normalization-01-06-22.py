@@ -1,7 +1,7 @@
-import pathlib
-import copy
 import json
 from laserfarm import DataProcessing
+import pathlib
+import copy
 import argparse
 arg_parser = argparse.ArgumentParser()
 
@@ -12,6 +12,7 @@ arg_parser.add_argument('--tiles', action='store' , required='True', dest='tiles
 arg_parser.add_argument('--param_hostname', action='store', type=str, required='True', dest='param_hostname')
 arg_parser.add_argument('--param_login', action='store', type=str, required='True', dest='param_login')
 arg_parser.add_argument('--param_password', action='store', type=str, required='True', dest='param_password')
+arg_parser.add_argument('--param_remote_path_root', action='store', type=str, required='True', dest='param_remote_path_root')
 
 args = arg_parser.parse_args()
 
@@ -22,16 +23,17 @@ tiles = args.tiles
 param_hostname = args.param_hostname
 param_login = args.param_login
 param_password = args.param_password
+param_remote_path_root = args.param_remote_path_root
 
-conf_remote_path_retiled = pathlib.Path('/webdav/retiled/')
+conf_remote_path_norm = pathlib.Path(param_remote_path_root + '/norm/')
+conf_remote_path_retiled = pathlib.Path(param_remote_path_root + '/retiled/')
 conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
 conf_local_tmp = pathlib.Path('/tmp')
-conf_remote_path_norm = pathlib.Path('/webdav/norm/')
 
-conf_remote_path_retiled = pathlib.Path('/webdav/retiled/')
+conf_remote_path_norm = pathlib.Path(param_remote_path_root + '/norm/')
+conf_remote_path_retiled = pathlib.Path(param_remote_path_root + '/retiled/')
 conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
 conf_local_tmp = pathlib.Path('/tmp')
-conf_remote_path_norm = pathlib.Path('/webdav/norm/')
 
 tiles
 
