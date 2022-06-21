@@ -5,5 +5,4 @@ channels:
 dependencies:
   - pip
   - pip:
-    - requests
     - laserfarm==0.1.4
