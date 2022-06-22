@@ -1,7 +1,7 @@
-import pathlib
-import json
-import copy
 from laserfarm import DataProcessing
+import copy
+import json
+import pathlib
 import argparse
 arg_parser = argparse.ArgumentParser()
 
@@ -26,14 +26,14 @@ param_password = args.param_password
 param_remote_path_root = args.param_remote_path_root
 
 conf_remote_path_norm = pathlib.Path(param_remote_path_root + '/norm/')
-conf_local_tmp = pathlib.Path('/tmp')
 conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
 conf_remote_path_retiled = pathlib.Path(param_remote_path_root + '/retiled/')
+conf_local_tmp = pathlib.Path('/tmp')
 
 conf_remote_path_norm = pathlib.Path(param_remote_path_root + '/norm/')
-conf_local_tmp = pathlib.Path('/tmp')
 conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
 conf_remote_path_retiled = pathlib.Path(param_remote_path_root + '/retiled/')
+conf_local_tmp = pathlib.Path('/tmp')
 
 tiles
 
