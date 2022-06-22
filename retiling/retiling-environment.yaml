@@ -3,10 +3,6 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - python==3.8.5
-  - pdal==2.3
-  - python-pdal
-  - gdal
   - pip
   - pip:
-    - laserfarm
+    - laserfarm==0.1.4
