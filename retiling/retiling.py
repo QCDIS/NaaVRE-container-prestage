@@ -33,15 +33,15 @@ param_n_tiles_side = args.param_n_tiles_side
 param_password = args.param_password
 param_remote_path_root = args.param_remote_path_root
 
-conf_local_tmp = pathlib.Path('/tmp')
-conf_remote_path_split = pathlib.Path(param_remote_path_root + '/split')
 conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
+conf_remote_path_split = pathlib.Path(param_remote_path_root + '/split')
 conf_remote_path_retiled = pathlib.Path(param_remote_path_root + '/retiled/')
+conf_local_tmp = pathlib.Path('/tmp')
 
-conf_local_tmp = pathlib.Path('/tmp')
-conf_remote_path_split = pathlib.Path(param_remote_path_root + '/split')
 conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
+conf_remote_path_split = pathlib.Path(param_remote_path_root + '/split')
 conf_remote_path_retiled = pathlib.Path(param_remote_path_root + '/retiled/')
+conf_local_tmp = pathlib.Path('/tmp')
 remote_path_retiled = str(conf_remote_path_retiled)
 
 grid_retile = {
