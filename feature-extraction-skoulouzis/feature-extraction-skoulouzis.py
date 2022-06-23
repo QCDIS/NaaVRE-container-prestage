@@ -46,15 +46,15 @@ param_remote_path_root = args.param_remote_path_root
 param_tile_mesh_size = args.param_tile_mesh_size
 param_validate_precision = args.param_validate_precision
 
-conf_local_tmp = pathlib.Path('/tmp')
-conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
 conf_remote_path_norm = pathlib.Path(param_remote_path_root + '/norm/')
+conf_local_tmp = pathlib.Path('/tmp')
 conf_remote_path_targets = pathlib.Path(param_remote_path_root + '/targets')
+conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
 
-conf_local_tmp = pathlib.Path('/tmp')
-conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
 conf_remote_path_norm = pathlib.Path(param_remote_path_root + '/norm/')
+conf_local_tmp = pathlib.Path('/tmp')
 conf_remote_path_targets = pathlib.Path(param_remote_path_root + '/targets')
+conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
 features = [param_feature_name]
 
 tile_mesh_size = float(param_tile_mesh_size)
