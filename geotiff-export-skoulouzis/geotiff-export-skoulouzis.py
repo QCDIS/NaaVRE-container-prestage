@@ -1,3 +1,4 @@
+import os
 from laserfarm import GeotiffWriter
 import pathlib
 import argparse
@@ -11,7 +12,6 @@ arg_parser.add_argument('--param_feature_name', action='store', type=str, requir
 arg_parser.add_argument('--param_hostname', action='store', type=str, required='True', dest='param_hostname')
 arg_parser.add_argument('--param_login', action='store', type=str, required='True', dest='param_login')
 arg_parser.add_argument('--param_password', action='store', type=str, required='True', dest='param_password')
-arg_parser.add_argument('--param_remote_path_ahn', action='store', type=str, required='True', dest='param_remote_path_ahn')
 arg_parser.add_argument('--param_remote_path_root', action='store', type=str, required='True', dest='param_remote_path_root')
 
 args = arg_parser.parse_args()
@@ -24,19 +24,20 @@ param_feature_name = args.param_feature_name
 param_hostname = args.param_hostname
 param_login = args.param_login
 param_password = args.param_password
-param_remote_path_ahn = args.param_remote_path_ahn
 param_remote_path_root = args.param_remote_path_root
 
+conf_remote_path_ahn = os.path.join(param_remote_path_root,'ahn')
 conf_local_tmp = pathlib.Path('/tmp')
-conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
 conf_remote_path_targets = pathlib.Path(param_remote_path_root + '/targets')
+conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
 
+conf_remote_path_ahn = os.path.join(param_remote_path_root,'ahn')
 conf_local_tmp = pathlib.Path('/tmp')
-conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
 conf_remote_path_targets = pathlib.Path(param_remote_path_root + '/targets')
+conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
 feature = features
 
-remote_path_geotiffs = pathlib.Path(param_remote_path_ahn).parent / 'geotiffs'
+remote_path_geotiffs = pathlib.Path(conf_remote_path_ahn).parent / 'geotiffs'
 
 remote_path_geotiffs_str = str(remote_path_geotiffs)
 
