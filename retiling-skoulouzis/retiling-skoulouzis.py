@@ -1,5 +1,5 @@
-from laserfarm import Retiler
 import pathlib
+from laserfarm import Retiler
 import argparse
 arg_parser = argparse.ArgumentParser()
 
