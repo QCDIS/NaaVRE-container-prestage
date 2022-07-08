@@ -1,7 +1,7 @@
 
 
 
-laz_files = ['a','b','c']
+laz_files = ['a','b','c','d']
 
 import json
 filename = "/tmp/laz_files_" + id + ".json"
