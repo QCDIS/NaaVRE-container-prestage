@@ -1,20 +1,19 @@
 import pathlib
-from laserfarm.remote_utils import get_wdclient
 from laserfarm.remote_utils import list_remote
+from laserfarm.remote_utils import get_wdclient
 import argparse
 arg_parser = argparse.ArgumentParser()
-
 arg_parser.add_argument('--id', action='store', type=str, required=True, dest='id')
+args = arg_parser.parse_args()
+
+id = args.id
+
 
 
 arg_parser.add_argument('--param_hostname', action='store', type=str, required='True', dest='param_hostname')
 arg_parser.add_argument('--param_login', action='store', type=str, required='True', dest='param_login')
 arg_parser.add_argument('--param_password', action='store', type=str, required='True', dest='param_password')
 arg_parser.add_argument('--param_remote_path_ahn', action='store', type=str, required='True', dest='param_remote_path_ahn')
-
-args = arg_parser.parse_args()
-
-id = args.id
 
 
 param_hostname = args.param_hostname
