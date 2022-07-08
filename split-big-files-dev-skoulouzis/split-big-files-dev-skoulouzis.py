@@ -80,17 +80,17 @@ client.mkdir(conf_remote_path_split.as_posix())
 
 remote_path_split = conf_remote_path_split
 
-for file in laz_files:
-    client.download_sync(remote_path=os.path.join(conf_remote_path_ahn,file), local_path=file)
-    inps = split_strategy(file, int(param_max_filesize))
-    for inp in inps:
-        save_chunk_to_laz_file(*inp)
-    client.upload_sync(remote_path=os.path.join(conf_remote_path_split,file), local_path=file)
+file = laz_files[0]
+client.download_sync(remote_path=os.path.join(conf_remote_path_ahn,file), local_path=file)
+inps = split_strategy(file, int(param_max_filesize))
+for inp in inps:
+    save_chunk_to_laz_file(*inp)
+client.upload_sync(remote_path=os.path.join(conf_remote_path_split,file), local_path=file)
 
-    for f in os.listdir('.'):
-        if not f.endswith('.LAZ'):
-            continue
-        os.remove(os.path.join('.', f))
+for f in os.listdir('.'):
+    if not f.endswith('.LAZ'):
+        continue
+    os.remove(os.path.join('.', f))
     
 split_laz_files = laz_files
 
