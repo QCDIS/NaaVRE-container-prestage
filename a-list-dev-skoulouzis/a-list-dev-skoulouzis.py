@@ -1,7 +1,8 @@
 import argparse
 arg_parser = argparse.ArgumentParser()
-
 arg_parser.add_argument('--id', action='store', type=str, required=True, dest='id')
+id = args.id
+
 
 
 
