@@ -1,15 +1,12 @@
-import os
-from webdav3.client import Client
-import numpy as np
 import pathlib
+import numpy as np
+from webdav3.client import Client
+import os
 import laspy
 import argparse
 arg_parser = argparse.ArgumentParser()
+
 arg_parser.add_argument('--id', action='store', type=str, required=True, dest='id')
-args = arg_parser.parse_args()
-
-id = args.id
-
 
 arg_parser.add_argument('--laz_files', action='store' , required='True', dest='laz_files')
 
@@ -20,6 +17,10 @@ arg_parser.add_argument('--param_max_filesize', action='store', type=str, requir
 arg_parser.add_argument('--param_password', action='store', type=str, required='True', dest='param_password')
 arg_parser.add_argument('--param_remote_path_ahn', action='store', type=str, required='True', dest='param_remote_path_ahn')
 arg_parser.add_argument('--param_remote_path_root', action='store', type=str, required='True', dest='param_remote_path_root')
+
+args = arg_parser.parse_args()
+
+id = args.id
 
 laz_files = args.laz_files
 
@@ -79,7 +80,6 @@ client.mkdir(conf_remote_path_split.as_posix())
 
 remote_path_split = conf_remote_path_split
 
-
 for file in laz_files:
     client.download_sync(remote_path=os.path.join(param_remote_path_ahn,file), local_path=file)
     inps = split_strategy(file, int(param_max_filesize))
@@ -90,7 +90,7 @@ for file in laz_files:
     for f in os.listdir('.'):
         if not f.endswith('.LAZ'):
             continue
-    os.remove(os.path.join('.', f))
+        os.remove(os.path.join('.', f))
     
 split_laz_files = laz_files
 
