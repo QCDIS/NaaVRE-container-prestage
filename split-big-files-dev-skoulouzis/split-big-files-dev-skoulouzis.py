@@ -1,12 +1,16 @@
 import pathlib
-import numpy as np
-from webdav3.client import Client
-import os
 import laspy
+from webdav3.client import Client
+import numpy as np
+import os
 import argparse
 arg_parser = argparse.ArgumentParser()
 
 arg_parser.add_argument('--id', action='store', type=str, required=True, dest='id')
+args = arg_parser.parse_args()
+
+id = args.id
+
 
 arg_parser.add_argument('--laz_files', action='store' , required='True', dest='laz_files')
 
@@ -17,10 +21,6 @@ arg_parser.add_argument('--param_max_filesize', action='store', type=str, requir
 arg_parser.add_argument('--param_password', action='store', type=str, required='True', dest='param_password')
 arg_parser.add_argument('--param_remote_path_root', action='store', type=str, required='True', dest='param_remote_path_root')
 
-args = arg_parser.parse_args()
-
-id = args.id
-
 laz_files = args.laz_files
 
 param_hostname = args.param_hostname
@@ -30,12 +30,12 @@ param_max_filesize = args.param_max_filesize
 param_password = args.param_password
 param_remote_path_root = args.param_remote_path_root
 
-conf_remote_path_split = pathlib.Path(param_remote_path_root + '/split')
 conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
+conf_remote_path_split = pathlib.Path(param_remote_path_root + '/split')
 conf_remote_path_ahn = param_remote_path_root + '/ahn'
 
-conf_remote_path_split = pathlib.Path(param_remote_path_root + '/split')
 conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
+conf_remote_path_split = pathlib.Path(param_remote_path_root + '/split')
 conf_remote_path_ahn = param_remote_path_root + '/ahn'
 
 
@@ -80,12 +80,12 @@ client.mkdir(conf_remote_path_split.as_posix())
 
 remote_path_split = conf_remote_path_split
 
-file = laz_files[0]
-client.download_sync(remote_path=os.path.join(conf_remote_path_ahn,file), local_path=file)
-inps = split_strategy(file, int(param_max_filesize))
-for inp in inps:
-    save_chunk_to_laz_file(*inp)
-client.upload_sync(remote_path=os.path.join(conf_remote_path_split,file), local_path=file)
+for file in laz_files:
+    client.download_sync(remote_path=os.path.join(conf_remote_path_ahn,file), local_path=file)
+    inps = split_strategy(file, int(param_max_filesize))
+    for inp in inps:
+        save_chunk_to_laz_file(*inp)
+    client.upload_sync(remote_path=os.path.join(conf_remote_path_split,file), local_path=file)
 
 for f in os.listdir('.'):
     if not f.endswith('.LAZ'):
