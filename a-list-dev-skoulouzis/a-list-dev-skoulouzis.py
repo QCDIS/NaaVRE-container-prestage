@@ -8,14 +8,7 @@ id = args.id
 
 
 
-arg_parser.add_argument('--param_a', action='store', type=int, required='True', dest='param_a')
 
-
-param_a = args.param_a
-
-
-
-print(param_a)
 laz_files = ['1','2','3']
 
 import json
