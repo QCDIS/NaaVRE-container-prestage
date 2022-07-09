@@ -3,7 +3,8 @@ arg_parser = argparse.ArgumentParser()
 
 arg_parser.add_argument('--id', action='store', type=str, required=True, dest='id')
 
-arg_parser.add_argument('--laz_files', action='store' , required='True', dest='laz_files')
+
+arg_parser.add_argument('--laz_files', action='store' , type=list , required='True', dest='laz_files')
 
 
 args = arg_parser.parse_args()
