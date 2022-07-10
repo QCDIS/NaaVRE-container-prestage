@@ -5,6 +5,6 @@ channels:
 dependencies:
   - pip
   - pip:
-    - webdavclient3
     - laspy
+    - webdavclient3
     - numpy==1.23.0
