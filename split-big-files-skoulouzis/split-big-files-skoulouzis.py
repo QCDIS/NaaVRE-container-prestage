@@ -97,3 +97,8 @@ for file in laz_files:
     
 split_laz_files = laz_files
 
+import json
+filename = "/tmp/split_laz_files_" + id + ".json"
+file_split_laz_files = open(filename, "w")
+file_split_laz_files.write(json.dumps(split_laz_files))
+file_split_laz_files.close()
