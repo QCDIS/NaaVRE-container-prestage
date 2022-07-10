@@ -1,8 +1,8 @@
-import os
 import pathlib
-from webdav3.client import Client
 import laspy
+import os
 import numpy as np
+from webdav3.client import Client
 import argparse
 arg_parser = argparse.ArgumentParser()
 
@@ -15,28 +15,30 @@ arg_parser.add_argument('--param_laz_compression_factor', action='store', type=s
 arg_parser.add_argument('--param_login', action='store', type=str, required='True', dest='param_login')
 arg_parser.add_argument('--param_max_filesize', action='store', type=str, required='True', dest='param_max_filesize')
 arg_parser.add_argument('--param_password', action='store', type=str, required='True', dest='param_password')
+arg_parser.add_argument('--param_remote_path_ahn', action='store', type=str, required='True', dest='param_remote_path_ahn')
 arg_parser.add_argument('--param_remote_path_root', action='store', type=str, required='True', dest='param_remote_path_root')
 
 args = arg_parser.parse_args()
 
 id = args.id
 
-laz_files = args.laz_files
+import json
+laz_files = json.loads(args.laz_files)
 
 param_hostname = args.param_hostname
 param_laz_compression_factor = args.param_laz_compression_factor
 param_login = args.param_login
 param_max_filesize = args.param_max_filesize
 param_password = args.param_password
+param_remote_path_ahn = args.param_remote_path_ahn
 param_remote_path_root = args.param_remote_path_root
 
-conf_remote_path_ahn = os.path.join(param_remote_path_root,'ahn')
-conf_remote_path_split = pathlib.Path(param_remote_path_root + '/split')
+conf_remote_path_split = pathlib.Path(param_remote_path_root + '/split_'+username)
 conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
 
-conf_remote_path_ahn = os.path.join(param_remote_path_root,'ahn')
-conf_remote_path_split = pathlib.Path(param_remote_path_root + '/split')
+conf_remote_path_split = pathlib.Path(param_remote_path_root + '/split_'+username)
 conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
+
 
 def save_chunk_to_laz_file(in_filename, 
                            out_filename, 
@@ -79,22 +81,19 @@ client.mkdir(conf_remote_path_split.as_posix())
 
 remote_path_split = conf_remote_path_split
 
-file = laz_files
-client.download_sync(remote_path=os.path.join(conf_remote_path_ahn,file), local_path=file)
-inps = split_strategy(file, int(param_max_filesize))
-for inp in inps:
-    save_chunk_to_laz_file(*inp)
-client.upload_sync(remote_path=os.path.join(conf_remote_path_split,file), local_path=file)
 
-for f in os.listdir('.'):
-    if not f.endswith('.LAZ'):
-        continue
-    os.remove(os.path.join('.', f))
+for file in laz_files:
+    print('Splitting: '+file )
+    client.download_sync(remote_path=os.path.join(param_remote_path_ahn,file), local_path=file)
+    inps = split_strategy(file, int(param_max_filesize))
+    for inp in inps:
+        save_chunk_to_laz_file(*inp)
+    client.upload_sync(remote_path=os.path.join(conf_remote_path_split,file), local_path=file)
+
+    for f in os.listdir('.'):
+        if not f.endswith('.LAZ'):
+            continue
+        os.remove(os.path.join('.', f))
     
 split_laz_files = laz_files
 
-import json
-filename = "/tmp/split_laz_files_" + id + ".json"
-file_split_laz_files = open(filename, "w")
-file_split_laz_files.write(json.dumps(split_laz_files))
-file_split_laz_files.close()
