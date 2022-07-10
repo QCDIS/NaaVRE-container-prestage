@@ -10,6 +10,7 @@ conf_remote_path_ahn = conf_remote_path_root + '/ahn'
 print(conf_remote_path_ahn)
 laz_files = [f for f in list_remote(get_wdclient(conf_wd_opts), pathlib.Path(conf_remote_path_ahn).as_posix())
              if f.lower().endswith('.laz')]
+print(laz_files)
 
 import json
 filename = "/tmp/laz_files_" + id + ".json"
