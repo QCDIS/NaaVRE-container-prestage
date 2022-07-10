@@ -10,6 +10,7 @@ arg_parser.add_argument('--id', action='store', type=str, required=True, dest='i
 
 arg_parser.add_argument('--laz_files', action='store' , required='True', dest='laz_files')
 
+arg_parser.add_argument('--param_username', action='store', type=str, required='True', dest='param_username')
 
 args = arg_parser.parse_args()
 
@@ -18,15 +19,16 @@ id = args.id
 import json
 laz_files = json.loads(args.laz_files)
 
+param_username = args.param_username
 
 conf_laz_compression_factor = '7'
-conf_remote_path_split = pathlib.Path(conf_remote_path_root + '/split_'+username)
+conf_remote_path_split = pathlib.Path(conf_remote_path_root + '/split_'+param_username)
 conf_wd_opts = { 'webdav_hostname': conf_hostname, 'webdav_login': conf_login, 'webdav_password': conf_password}
 conf_remote_path_ahn = conf_remote_path_root + '/ahn'
 conf_max_filesize = '262144000'  # desired max file size (in bytes)
 
 conf_laz_compression_factor = '7'
-conf_remote_path_split = pathlib.Path(conf_remote_path_root + '/split_'+username)
+conf_remote_path_split = pathlib.Path(conf_remote_path_root + '/split_'+param_username)
 conf_wd_opts = { 'webdav_hostname': conf_hostname, 'webdav_login': conf_login, 'webdav_password': conf_password}
 conf_remote_path_ahn = conf_remote_path_root + '/ahn'
 conf_max_filesize = '262144000'  # desired max file size (in bytes)
