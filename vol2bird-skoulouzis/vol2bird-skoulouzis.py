@@ -1,8 +1,8 @@
 import re
 import pathlib
 import h5py
-import json
 import pandas as pd
+import json
 from pathlib import Path
 from minio import Minio
 import sys
@@ -15,12 +15,6 @@ arg_parser.add_argument('--id', action='store', type=str, required=True, dest='i
 
 arg_parser.add_argument('--input_file_list', action='store', type=list, required='True', dest='input_file_list')
 
-arg_parser.add_argument('--param_minio_access_key', action='store', type=str, required='True', dest='param_minio_access_key')
-arg_parser.add_argument('--param_minio_endpoint', action='store', type=str, required='True', dest='param_minio_endpoint')
-arg_parser.add_argument('--param_minio_input_bucket', action='store', type=str, required='True', dest='param_minio_input_bucket')
-arg_parser.add_argument('--param_minio_input_prefix', action='store', type=str, required='True', dest='param_minio_input_prefix')
-arg_parser.add_argument('--param_minio_secret_key', action='store', type=str, required='True', dest='param_minio_secret_key')
-arg_parser.add_argument('--param_minio_secure', action='store', type=str, required='True', dest='param_minio_secure')
 arg_parser.add_argument('--param_radar_db_source_name', action='store', type=str, required='True', dest='param_radar_db_source_name')
 
 args = arg_parser.parse_args()
@@ -29,26 +23,32 @@ id = args.id
 
 input_file_list = args.input_file_list
 
-param_minio_access_key = args.param_minio_access_key
-param_minio_endpoint = args.param_minio_endpoint
-param_minio_input_bucket = args.param_minio_input_bucket
-param_minio_input_prefix = args.param_minio_input_prefix
-param_minio_secret_key = args.param_minio_secret_key
-param_minio_secure = args.param_minio_secure
 param_radar_db_source_name = args.param_radar_db_source_name
 
 conf_output_dir = str(Path.home()) + '/output_dir'  # Set this to something relevant to your machine. This needs to specify a path from where to upload from.
 conf_minio_download_dir = str(Path.home()) + '/minio_download_dir'
+conf_minio_secret_key = ''
+conf_minio_secure = 'True'  # bool
+conf_minio_access_key = ''
+conf_minio_input_prefix = 'NL/DHL/2018/10/03'
+conf_minio_endpoint = ''
+conf_minio_input_bucket = 'lifewatchin'
 
 conf_output_dir = str(Path.home()) + '/output_dir'  # Set this to something relevant to your machine. This needs to specify a path from where to upload from.
 conf_minio_download_dir = str(Path.home()) + '/minio_download_dir'
+conf_minio_secret_key = ''
+conf_minio_secure = 'True'  # bool
+conf_minio_access_key = ''
+conf_minio_input_prefix = 'NL/DHL/2018/10/03'
+conf_minio_endpoint = ''
+conf_minio_input_bucket = 'lifewatchin'
 
-minio_client = Minio(endpoint=param_minio_endpoint,
-                     access_key=param_minio_access_key,
-                     secret_key=param_minio_secret_key,
-                     secure=bool(param_minio_secure))
+minio_client = Minio(endpoint=conf_minio_endpoint,
+                     access_key=conf_minio_access_key,
+                     secret_key=conf_minio_secret_key,
+                     secure=bool(conf_minio_secure))
 
-minio_client.fget_object(param_minio_input_bucket, param_radar_db_source_name, param_radar_db_source_name)
+minio_client.fget_object(conf_minio_input_bucket, param_radar_db_source_name, param_radar_db_source_name)
 
 with open(param_radar_db_source_name, mode="r") as f:
     radar_db_json = json.load(f)
@@ -60,8 +60,8 @@ for radar_dict in radar_db_json:
     except Exception:  # Happens when there is for ex. no wmo code.
         pass
 
-list_objects = minio_client.list_objects(bucket_name=param_minio_input_bucket,
-                                         prefix=param_minio_input_prefix,
+list_objects = minio_client.list_objects(bucket_name=conf_minio_input_bucket,
+                                         prefix=conf_minio_input_prefix,
                                          recursive=True)
 local_input_file_paths = []
 for list_object in list_objects:
@@ -185,7 +185,7 @@ def vol2bird(in_file, out_dir, radar_db, add_version=True, add_sector=False):
 out_dir_vp = "{}/{}".format(conf_output_dir, 'vp')
 output_file_list = []
 
-minio_client.fget_object(param_minio_input_bucket, param_radar_db_source_name, param_radar_db_source_name)
+minio_client.fget_object(conf_minio_input_bucket, param_radar_db_source_name, param_radar_db_source_name)
 
 with open(param_radar_db_source_name, mode="r") as f:
     radar_db_json = json.load(f)
