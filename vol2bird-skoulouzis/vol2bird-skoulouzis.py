@@ -1,47 +1,50 @@
-import re
-import pathlib
-import h5py
-import pandas as pd
 import json
-from pathlib import Path
-from minio import Minio
-import sys
 import subprocess
+import sys
+from pathlib import Path
+import pandas as pd
+import pathlib
+import re
+import h5py
+from minio import Minio
 
 import argparse
 arg_parser = argparse.ArgumentParser()
 
 arg_parser.add_argument('--id', action='store', type=str, required=True, dest='id')
 
-arg_parser.add_argument('--input_file_list', action='store', type=list, required='True', dest='input_file_list')
+
+arg_parser.add_argument('--input_file_list', action='store', type=str, required='True', dest='input_file_list')
 
 arg_parser.add_argument('--param_radar_db_source_name', action='store', type=str, required='True', dest='param_radar_db_source_name')
 
 args = arg_parser.parse_args()
+print(args)
 
 id = args.id
 
-input_file_list = args.input_file_list
+import json
+input_file_list = json.loads(args.input_file_list.replace('\'','').replace('[','["').replace(']','"]'))
 
 param_radar_db_source_name = args.param_radar_db_source_name
 
 conf_output_dir = str(Path.home()) + '/output_dir'  # Set this to something relevant to your machine. This needs to specify a path from where to upload from.
-conf_minio_download_dir = str(Path.home()) + '/minio_download_dir'
-conf_minio_secret_key = ''
-conf_minio_secure = 'True'  # bool
-conf_minio_access_key = ''
-conf_minio_input_prefix = 'NL/DHL/2018/10/03'
-conf_minio_endpoint = ''
 conf_minio_input_bucket = 'lifewatchin'
+conf_minio_endpoint = ''
+conf_minio_secure = 'True'  # bool
+conf_minio_input_prefix = 'NL/DHL/2018/10/03'
+conf_minio_download_dir = str(Path.home()) + '/minio_download_dir'
+conf_minio_access_key = ''
+conf_minio_secret_key = ''
 
 conf_output_dir = str(Path.home()) + '/output_dir'  # Set this to something relevant to your machine. This needs to specify a path from where to upload from.
-conf_minio_download_dir = str(Path.home()) + '/minio_download_dir'
-conf_minio_secret_key = ''
-conf_minio_secure = 'True'  # bool
-conf_minio_access_key = ''
-conf_minio_input_prefix = 'NL/DHL/2018/10/03'
-conf_minio_endpoint = ''
 conf_minio_input_bucket = 'lifewatchin'
+conf_minio_endpoint = ''
+conf_minio_secure = 'True'  # bool
+conf_minio_input_prefix = 'NL/DHL/2018/10/03'
+conf_minio_download_dir = str(Path.home()) + '/minio_download_dir'
+conf_minio_access_key = ''
+conf_minio_secret_key = ''
 
 minio_client = Minio(endpoint=conf_minio_endpoint,
                      access_key=conf_minio_access_key,
