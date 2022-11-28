@@ -8,6 +8,9 @@ arg_parser.add_argument('--id', action='store', type=str, required=True, dest='i
 
 arg_parser.add_argument('--split_laz_files', action='store', type=list, required='True', dest='split_laz_files')
 
+arg_parser.add_argument('--param_hostname', action='store', type=str, required='True', dest='param_hostname')
+arg_parser.add_argument('--param_login', action='store', type=str, required='True', dest='param_login')
+arg_parser.add_argument('--param_password', action='store', type=str, required='True', dest='param_password')
 arg_parser.add_argument('--param_username', action='store', type=str, required='True', dest='param_username')
 
 args = arg_parser.parse_args()
@@ -16,27 +19,30 @@ id = args.id
 
 split_laz_files = args.split_laz_files
 
+param_hostname = args.param_hostname
+param_login = args.param_login
+param_password = args.param_password
 param_username = args.param_username
 
-conf_remote_path_retiled = pathlib.Path( '/webdav/LAZ' + '/retiled_'+param_username)
-conf_min_y = '214783.87'
+conf_local_tmp = pathlib.Path('/tmp')
 conf_max_y = '726783.87'
+conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
 conf_n_tiles_side = '512'
 conf_remote_path_split = pathlib.Path( '/webdav/LAZ' + '/split_'+param_username)
-conf_local_tmp = pathlib.Path('/tmp')
-conf_max_x = '398892.19'
-conf_wd_opts = { 'webdav_hostname':  'https://lfw-ds001-i022.lifewatch.dev:32443/', 'webdav_login':  '20BNXDdL8mg24OaD', 'webdav_password':  'zDoy0hNKkcnsdsQ@OYAVd'}
+conf_remote_path_retiled = pathlib.Path( '/webdav/LAZ' + '/retiled_'+param_username)
 conf_min_x = '-113107.81'
+conf_min_y = '214783.87'
+conf_max_x = '398892.19'
 
-conf_remote_path_retiled = pathlib.Path( '/webdav/LAZ' + '/retiled_'+param_username)
-conf_min_y = '214783.87'
+conf_local_tmp = pathlib.Path('/tmp')
 conf_max_y = '726783.87'
+conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
 conf_n_tiles_side = '512'
 conf_remote_path_split = pathlib.Path( '/webdav/LAZ' + '/split_'+param_username)
-conf_local_tmp = pathlib.Path('/tmp')
-conf_max_x = '398892.19'
-conf_wd_opts = { 'webdav_hostname':  'https://lfw-ds001-i022.lifewatch.dev:32443/', 'webdav_login':  '20BNXDdL8mg24OaD', 'webdav_password':  'zDoy0hNKkcnsdsQ@OYAVd'}
+conf_remote_path_retiled = pathlib.Path( '/webdav/LAZ' + '/retiled_'+param_username)
 conf_min_x = '-113107.81'
+conf_min_y = '214783.87'
+conf_max_x = '398892.19'
 split_laz_files
 remote_path_retiled = str(conf_remote_path_retiled)
 
