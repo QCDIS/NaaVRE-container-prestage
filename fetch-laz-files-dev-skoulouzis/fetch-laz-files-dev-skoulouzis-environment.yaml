@@ -5,4 +5,4 @@ channels:
 dependencies:
   - pip
   - pip:
-    - laserfarm==0.1.4
+    - laserfarm
