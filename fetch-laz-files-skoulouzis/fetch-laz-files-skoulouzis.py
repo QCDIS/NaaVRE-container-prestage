@@ -13,6 +13,7 @@ arg_parser.add_argument('--param_login', action='store', type=str, required='Tru
 arg_parser.add_argument('--param_password', action='store', type=str, required='True', dest='param_password')
 
 args = arg_parser.parse_args()
+print(args)
 
 id = args.id
 
