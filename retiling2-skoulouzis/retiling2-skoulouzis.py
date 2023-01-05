@@ -11,11 +11,6 @@ arg_parser.add_argument('--split_laz_files', action='store', type=str, required=
 
 arg_parser.add_argument('--param_hostname', action='store', type=str, required='True', dest='param_hostname')
 arg_parser.add_argument('--param_login', action='store', type=str, required='True', dest='param_login')
-arg_parser.add_argument('--param_max_x', action='store', type=str, required='True', dest='param_max_x')
-arg_parser.add_argument('--param_max_y', action='store', type=str, required='True', dest='param_max_y')
-arg_parser.add_argument('--param_min_x', action='store', type=str, required='True', dest='param_min_x')
-arg_parser.add_argument('--param_min_y', action='store', type=str, required='True', dest='param_min_y')
-arg_parser.add_argument('--param_n_tiles_side', action='store', type=str, required='True', dest='param_n_tiles_side')
 arg_parser.add_argument('--param_password', action='store', type=str, required='True', dest='param_password')
 arg_parser.add_argument('--param_username', action='store', type=str, required='True', dest='param_username')
 
@@ -29,32 +24,37 @@ split_laz_files = json.loads(args.split_laz_files.replace('\'','').replace('[','
 
 param_hostname = args.param_hostname
 param_login = args.param_login
-param_max_x = args.param_max_x
-param_max_y = args.param_max_y
-param_min_x = args.param_min_x
-param_min_y = args.param_min_y
-param_n_tiles_side = args.param_n_tiles_side
 param_password = args.param_password
 param_username = args.param_username
 
 conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
+conf_max_y = '726783.87'
+conf_min_x = '-113107.81'
+conf_max_x = '398892.19'
 conf_local_tmp = pathlib.Path('/tmp')
+conf_min_y = '214783.87'
 conf_remote_path_retiled = pathlib.Path( '/webdav/LAZ' + '/retiled_'+param_username)
 conf_remote_path_ahn =  '/webdav/LAZ'
+conf_n_tiles_side = '512'
 
 conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
+conf_max_y = '726783.87'
+conf_min_x = '-113107.81'
+conf_max_x = '398892.19'
 conf_local_tmp = pathlib.Path('/tmp')
+conf_min_y = '214783.87'
 conf_remote_path_retiled = pathlib.Path( '/webdav/LAZ' + '/retiled_'+param_username)
 conf_remote_path_ahn =  '/webdav/LAZ'
+conf_n_tiles_side = '512'
 split_laz_files
 remote_path_retiled = str(conf_remote_path_retiled)
 
 grid_retile = {
-    'min_x': float(param_min_x),
-    'max_x': float(param_max_x),
-    'min_y': float(param_min_y),
-    'max_y': float(param_max_y),
-    'n_tiles_side': int(param_n_tiles_side)
+    'min_x': float(conf_min_x),
+    'max_x': float(conf_max_x),
+    'min_y': float(conf_min_y),
+    'max_y': float(conf_max_y),
+    'n_tiles_side': int(conf_n_tiles_side)
 }
 
 
