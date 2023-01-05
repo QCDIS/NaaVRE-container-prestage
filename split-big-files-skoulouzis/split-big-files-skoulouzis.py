@@ -1,8 +1,8 @@
-from webdav3.client import Client
-import os
-import numpy as np
-import pathlib
 import laspy
+import os
+import pathlib
+import numpy as np
+from webdav3.client import Client
 
 import argparse
 arg_parser = argparse.ArgumentParser()
@@ -31,14 +31,14 @@ param_password = args.param_password
 param_username = args.param_username
 
 conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
-conf_laz_compression_factor = '7'
 conf_remote_path_ahn =  '/webdav/LAZ'
+conf_laz_compression_factor = '7'
 conf_max_filesize = '262144000'  # desired max file size (in bytes)
 conf_remote_path_split = pathlib.Path( '/webdav/LAZ' + '/split_'+param_username)
 
 conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
-conf_laz_compression_factor = '7'
 conf_remote_path_ahn =  '/webdav/LAZ'
+conf_laz_compression_factor = '7'
 conf_max_filesize = '262144000'  # desired max file size (in bytes)
 conf_remote_path_split = pathlib.Path( '/webdav/LAZ' + '/split_'+param_username)
 
