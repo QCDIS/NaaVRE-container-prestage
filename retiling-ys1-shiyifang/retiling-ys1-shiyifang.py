@@ -70,7 +70,7 @@ retiling_input = {
 
 
     
-file = laz_files
+file = laz_files[0]
     
 retiler = Retiler(file,label=file).config(retiling_input).setup_webdav_client(conf_wd_opts)
 retiler_output = retiler.run()
