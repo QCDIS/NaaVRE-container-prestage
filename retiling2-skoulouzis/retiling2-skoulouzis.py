@@ -49,6 +49,10 @@ conf_n_tiles_side = '512'
 split_laz_files
 remote_path_retiled = str(conf_remote_path_retiled)
 
+print('conf_local_tmp: '+conf_local_tmp)
+print('conf_remote_path_ahn: '+conf_remote_path_ahn)
+print('conf_remote_path_retiled: '+conf_remote_path_retiled)
+
 grid_retile = {
     'min_x': float(conf_min_x),
     'max_x': float(conf_max_x),
@@ -59,12 +63,12 @@ grid_retile = {
 
 
 retiling_input = {
-    'setup_local_fs': {'tmp_folder': conf_local_tmp.as_posix()},
-    'pullremote': conf_remote_path_ahn.as_posix(),
+    'setup_local_fs': {'tmp_folder': conf_local_tmp},
+    'pullremote': conf_remote_path_ahn,
     'set_grid': grid_retile,
     'split_and_redistribute': {},
     'validate': {},
-    'pushremote': conf_remote_path_retiled.as_posix(),
+    'pushremote': conf_remote_path_retiled,
     'cleanlocalfs': {}
 }
 
@@ -73,6 +77,7 @@ retiling_input = {
 for file in split_laz_files:
     retiler = Retiler(file.replace('"',''),label=file).config(retiling_input).setup_webdav_client(conf_wd_opts)
     retiler_output = retiler.run()
+    
 
 import json
 filename = "/tmp/retiler_output_" + id + ".json"
