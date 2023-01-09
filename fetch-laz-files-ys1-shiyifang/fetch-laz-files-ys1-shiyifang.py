@@ -1,5 +1,5 @@
-import pathlib
 from laserfarm.remote_utils import list_remote
+import pathlib
 from laserfarm.remote_utils import get_wdclient
 
 import argparse
@@ -22,11 +22,11 @@ param_hostname = args.param_hostname
 param_login = args.param_login
 param_password = args.param_password
 
-conf_remote_path_ahn = pathlib.Path('/pnfs/grid.sara.nl/data/lidarac/disk/02_UvA/YShi/AHN3/Test_las/ahn')
 conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
+conf_remote_path_ahn = pathlib.Path('/pnfs/grid.sara.nl/data/lidarac/disk/02_UvA/YShi/AHN3/Test_las/ahn')
 
-conf_remote_path_ahn = pathlib.Path('/pnfs/grid.sara.nl/data/lidarac/disk/02_UvA/YShi/AHN3/Test_las/ahn')
 conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
+conf_remote_path_ahn = pathlib.Path('/pnfs/grid.sara.nl/data/lidarac/disk/02_UvA/YShi/AHN3/Test_las/ahn')
 laz_files = [f for f in list_remote(get_wdclient(conf_wd_opts), conf_remote_path_ahn.as_posix())
              if f.lower().endswith('.laz')]
 
