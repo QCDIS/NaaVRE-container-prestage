@@ -35,15 +35,15 @@ param_min_y = args.param_min_y
 param_n_tiles_side = args.param_n_tiles_side
 param_password = args.param_password
 
-conf_remote_path_retiled = pathlib.Path('/pnfs/grid.sara.nl/data/lidarac/disk/02_UvA/YShi/AHN3/Test_las/retiled/')
 conf_local_tmp = pathlib.Path('/tmp')
 conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
 conf_remote_path_ahn = pathlib.Path('/pnfs/grid.sara.nl/data/lidarac/disk/02_UvA/YShi/AHN3/Test_las/ahn')
+conf_remote_path_retiled = pathlib.Path('/pnfs/grid.sara.nl/data/lidarac/disk/02_UvA/YShi/AHN3/Test_las/retiled/')
 
-conf_remote_path_retiled = pathlib.Path('/pnfs/grid.sara.nl/data/lidarac/disk/02_UvA/YShi/AHN3/Test_las/retiled/')
 conf_local_tmp = pathlib.Path('/tmp')
 conf_wd_opts = { 'webdav_hostname': param_hostname, 'webdav_login': param_login, 'webdav_password': param_password}
 conf_remote_path_ahn = pathlib.Path('/pnfs/grid.sara.nl/data/lidarac/disk/02_UvA/YShi/AHN3/Test_las/ahn')
+conf_remote_path_retiled = pathlib.Path('/pnfs/grid.sara.nl/data/lidarac/disk/02_UvA/YShi/AHN3/Test_las/retiled/')
 
 
 
